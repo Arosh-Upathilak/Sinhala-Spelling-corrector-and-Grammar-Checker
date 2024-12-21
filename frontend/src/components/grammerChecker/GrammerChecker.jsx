@@ -21,7 +21,7 @@ const GrammarChecker = () => {
     setGrammarCorrection("");
 
     try {
-      const response = await fetch("http://localhost:5000/check", {
+      const response = await fetch("http://localhost:8080/check", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ paragraph }),
@@ -77,14 +77,8 @@ const GrammarChecker = () => {
             </button>
           </div>
 
-          {(spellingCorrection || grammarCorrection) && (
+          {( grammarCorrection) && (
             <div className="results-section">
-              <div className="correction-box">
-                <h3 className="correction-title">Spelling Suggestions</h3>
-                <div className="correction-content">
-                  {spellingCorrection || "No spelling corrections needed"}
-                </div>
-              </div>
 
               <div className="correction-box">
                 <h3 className="correction-title">Grammar Suggestions</h3>
