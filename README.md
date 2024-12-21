@@ -1,1 +1,0 @@
-# Sinhala-Spelling-corrector-and-Grammar-Checker
