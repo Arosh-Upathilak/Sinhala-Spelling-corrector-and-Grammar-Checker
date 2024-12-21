@@ -1,0 +1,23 @@
+.grammar-checker {
+    font-family: Arial, sans-serif;
+    max-width: 600px;
+    margin: auto;
+  }
+  
+  textarea {
+    width: 100%;
+    height: 100px;
+    margin-bottom: 10px;
+  }
+  
+  button {
+    padding: 10px 15px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  .suggestions textarea {
+    margin-top: 5px;
+    height: 80px;
+  }
+  
