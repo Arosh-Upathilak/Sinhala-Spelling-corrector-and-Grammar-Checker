@@ -1,4 +1,3 @@
-
 from fuzzywuzzy import fuzz
 import re
 
@@ -38,8 +37,6 @@ def check_and_suggest_sentence(sentence):
         first_period_index = sentence.find('.')
         sentence = sentence[:first_period_index] + ' ' + sentence[first_period_index+1:] 
     
-    print(sentence)
-
 
     words = sentence.split()
     corrected_sentence = []
@@ -71,7 +68,6 @@ def check_and_suggest_sentence(sentence):
         return "No errors found."
     else:
         return result
-
 
 
 def correct_sentence_with_rules(text):
@@ -141,8 +137,14 @@ def correct_sentence_with_rules(text):
 
 
 
+
 if __name__ == "__main__":
     #word = input("Enter a word to check: ")
+    sentsets="අතර අම්මා උදෑසනම රැකියාවට ගියහ"
+    print(f"Corrected Sentence: {correct_sentence_with_rules(sentsets)}")
+   
+    print(f"Corrected Sentence: {correct_sentence_with_rules('අනතුර සිදුවන අවස්ථාවේ බස් රථයේ මගීන් 20ත් 25ත් අතර ප්‍රමාණයක් සිට ඇති අතර ඔවුන් සියලු දෙනාම කඩිනමින් දික්ඔය සහ වටවල රෝහල්වලට ඇතුළත් කිරීමට කටයුතු කළාය.අතර අම්මා උදෑසනම රැකියාවට ගියහ.')}")
+
     print(check_and_suggest("සෙල්ලම්"))
     print(check_and_suggest("ඵරිඝනකය"))
 
@@ -155,3 +157,7 @@ if __name__ == "__main__":
     print(f"Corrected Sentence: {corrected_sentence}")
 
     print(f"Corrected Sentence: {correct_sentence_with_rules('අනතුර සිදුවන අවස්ථාවේ බස් රථයේ මගීන් 20ත් 25ත් අතර ප්‍රමාණයක් සිට ඇති අතර ඔවුන් සියලු දෙනාම කඩිනමින් දික්ඔය සහ වටවල රෝහල්වලට ඇතුළත් කිරීමට කටයුතු කළාය')}")
+
+
+
+    
