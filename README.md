@@ -17,7 +17,7 @@ The **Sinhala Spell and Grammar Checker** is a rule-based tool designed to ident
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/sinhala-spell-grammar-checker.git
+   git clone https://github.com/yourusername/Sinhala-Spelling-corrector-and-Grammar-Checker.git
    ```
 
 2. Navigate to the project directory:
