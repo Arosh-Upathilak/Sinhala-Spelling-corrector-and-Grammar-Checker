@@ -6,7 +6,6 @@ from fuzzywuzzy import fuzz
 app = Flask(__name__)
 CORS(app)
 
-# Import the existing functions from the provided code
 def check_and_suggest(word):
     try:
         with open("./Dictionary/Sinhala_Dictionary.text", "r", encoding="UTF-8") as f:
@@ -30,7 +29,6 @@ def check_and_suggest(word):
     )[:3] 
 
     return suggestions if suggestions else "No suggestions found."
-
 
 def check_and_suggest_sentence(sentence):
     words = sentence.split()
@@ -58,7 +56,6 @@ def check_and_suggest_sentence(sentence):
         "errors": error_report.strip(),
         "corrected_sentence": corrected_paragraph
     }
-
 
 def correct_sentence_with_rules(text):
     try:
@@ -117,18 +114,25 @@ def correct_sentence_with_rules(text):
     corrected_text = ".".join(corrected_sentences) + "." if corrected_sentences else ""
     return corrected_text
 
-
 @app.route('/check', methods=['POST'])
 def check_text():
     data = request.get_json()
-    paragraph = data.get('paragraph', '')
+    text = data.get('paragraph', '') or data.get('sentence', '')
 
-    spelling_result = check_and_suggest_sentence(paragraph)
+    if not text:
+        return jsonify({"error": "No text provided"}), 400
+
+    # First perform spelling correction
+    spelling_result = check_and_suggest_sentence(text)
+    
+    # Then perform grammar correction on the spell-checked text
     grammar_correction = correct_sentence_with_rules(spelling_result['corrected_sentence'])
 
     return jsonify({
         "spelling_correction": spelling_result['corrected_sentence'],
-        "grammar_correction": grammar_correction
+        "grammar_correction": grammar_correction,
+        #"spelling_errors": spelling_result['errors']
+        "errors": spelling_result['errors']
     })
 
 @app.route("/spellcheck", methods=["POST"])
@@ -136,10 +140,9 @@ def spell_check():
     data = request.json
     word = data.get("word")
     if not word:
-        return jsonify({"error": "No word provided"}), 400  # Handle missing word input
+        return jsonify({"error": "No word provided"}), 400
     suggestions = check_and_suggest(word)
     return jsonify({"suggestions": suggestions})
 
-
 if __name__ == '__main__':
-    app.run(debug=True,port=8080)
+    app.run(debug=True, port=8080)
