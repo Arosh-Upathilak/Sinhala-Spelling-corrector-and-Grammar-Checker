@@ -4,7 +4,7 @@ import "./GrammerChecker.css";
 
 const GrammarChecker = () => {
   const [paragraph, setParagraph] = useState("");
-  const [spellingCorrection, setSpellingCorrection] = useState("");
+  const [, setSpellingCorrection] = useState("");
   const [grammarCorrection, setGrammarCorrection] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
@@ -42,6 +42,22 @@ const GrammarChecker = () => {
     }
   };
 
+  const handleCopy = () => {
+    navigator.clipboard.writeText(grammarCorrection).then(() => {
+      alert("Corrected grammar text copied to clipboard!");
+    });
+  };
+
+  const handleDownload = () => {
+    const element = document.createElement("a");
+    const file = new Blob([grammarCorrection], { type: "text/plain" });
+    element.href = URL.createObjectURL(file);
+    element.download = "corrected_grammar.txt";
+    document.body.appendChild(element);
+    element.click();
+    document.body.removeChild(element);
+  };
+
   return (
     <div className="grammar-checker">
       <div className="background-shapes">
@@ -77,13 +93,21 @@ const GrammarChecker = () => {
             </button>
           </div>
 
-          {( grammarCorrection) && (
+          {grammarCorrection && (
             <div className="results-section">
-
               <div className="correction-box">
-                <h3 className="correction-title">Grammar Suggestions</h3>
+                <h3 className="correction-title">Corrected Grammar Text</h3>
                 <div className="correction-content">
                   {grammarCorrection || "No grammar corrections needed"}
+                </div>
+                <br />
+                <div className="action-buttons">
+                  <button className="action-button" onClick={handleCopy}>
+                    Copy Text
+                  </button>
+                  <button className="action-button" onClick={handleDownload}>
+                    Download Text
+                  </button>
                 </div>
               </div>
             </div>
